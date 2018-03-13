@@ -11,4 +11,13 @@ class Link
     res = conn.exec("SELECT * FROM links")
     res.map { |link| link['url'] }
   end
+
+  def self.add(url)
+    if ENV['ENVIRONMENT'] == 'test'
+      conn = PG.connect(dbname: :bookmark_manager_test)
+    else
+      conn = PG.connect(dbname: :bookmark_manager)
+    end
+    res = conn.exec("INSERT INTO links (url) VALUES ('#{url}')")
+  end
 end

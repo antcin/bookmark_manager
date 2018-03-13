@@ -1,6 +1,11 @@
+<form method="post" action="/add">
+  <input type="text" name="url" placeholder="Add a link">
+  <input type="submit" value="Add">
+</form>
+
+
 <ul>
   <% @links.each do |link| %>
     <li><%= link %> <li>
   <% end %>
 <ul>
-
