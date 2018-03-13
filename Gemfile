@@ -9,4 +9,5 @@ gem 'rspec'
 gem 'simplecov', require: false, group: :test
 gem 'simplecov-console'
 gem 'sinatra'
+gem 'sinatra-flash'
 gem 'shotgun'
