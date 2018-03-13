@@ -1,5 +1,3 @@
-require 'link'
-
 describe Link do
 
   describe '#self.all' do
@@ -18,4 +16,5 @@ describe Link do
       expect(links).to include('http://www.ricky.hewitt.tech')
     end
   end
+
 end

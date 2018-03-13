@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require './lib/link'
+require './database_connection_setup'
 
 class BookmarkManager < Sinatra::Base
 
@@ -13,6 +14,6 @@ class BookmarkManager < Sinatra::Base
     redirect('/')
   end
 
-run! if app_file == $0
+  run! if app_file == $0
 
 end
