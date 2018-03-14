@@ -2,12 +2,17 @@
 
 <form method="post" action="/add">
   <input type="text" name="url" placeholder="Add a link">
+  <input type="text" name="title">
   <input type="submit" value="Add">
 </form>
 
 
 <ul>
   <% @links.each do |link| %>
-    <li><%= link %> </li>
+    <li> id="link-<%= link.id %>">
+      <a href="<%= link.url %>" target="_blank">
+        <%= link.title %>
+      </a>
+    </li>
   <% end %>
 <ul>

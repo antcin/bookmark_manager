@@ -6,14 +6,14 @@ task :test_database_setup do
 
   conn.exec "TRUNCATE links"
 
-  URLS = [
-    'http://www.makersacademy.com',
-    'http://www.facebook.com',
-    'http://www.google.com'
-  ]
+  URLS = {
+    'http://www.makersacademy.com' => 'Makers Academy',
+    'http://www.facebook.com' => 'Facebook',
+    'http://www.google.com' => 'Google'
+  }
 
-  URLS.each { |url|
-    conn.exec "INSERT INTO links (url) VALUES ('#{url}')"
+  URLS.each { |url, title|
+    conn.exec "INSERT INTO links (url, title) VALUES ('#{url}', '#{title}')"
   }
 end
 
@@ -23,7 +23,7 @@ task :setup do
     conn = PG.connect
     conn.exec("CREATE DATABASE #{ database }")
     connect = PG.connect(dbname: database)
-    connect.exec("CREATE TABLE links(id SERIAL PRIMARY KEY, url VARCHAR(60))")
+    connect.exec("CREATE TABLE links(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60))")
     rescue
       puts "Failed to create #{ database }. It probably already exists"
     end
