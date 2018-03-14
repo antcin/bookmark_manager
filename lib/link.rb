@@ -1,4 +1,5 @@
 require_relative './database_connection.rb'
+require 'uri'
 
 class Link
 
@@ -17,7 +18,12 @@ class Link
 
   def self.add(url)
     return false unless is_url?(url[:url])
-    DatabaseConnection.query("INSERT INTO links (url, title) VALUES('#{url[:url]}', '#{url[:title]}')")
+    res = DatabaseConnection.query("INSERT INTO links (url, title) VALUES('#{url[:url]}', '#{url[:title]}') RETURNING id, url, title")
+    Link.new(res[0]['id'], res[0]['url'], res[0]['title'])
+  end
+
+  def self.delete(id)
+    DatabaseConnection.query("DELETE FROM links WHERE id = #{id}")
   end
 
   private

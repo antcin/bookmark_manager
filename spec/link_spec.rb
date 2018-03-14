@@ -1,4 +1,7 @@
 describe Link do
+  before(:each) do
+    @link = Link.add(url: 'http://ricky.hewitt.tech', title: 'Ricky Hewitt Tech')
+  end
 
 
   describe '#self.all' do
@@ -7,19 +10,17 @@ describe Link do
 
       urls = links.map(&:url)
 
-      expect(urls).to include("http://www.makersacademy.com")
-      expect(urls).to include("http://www.facebook.com")
-      expect(urls).to include("http://www.google.com")
+      expect(urls).to include("http://ricky.hewitt.tech")
     end
   end
 
   describe '#self.add' do
     it 'adds a link' do
-      Link.add(url: 'http://www.ricky.hewitt.tech')
+      Link.add(url: 'http://ricky.hewitt.tech')
       links = Link.all
       urls = links.map(&:url)
 
-      expect(urls).to include('http://www.ricky.hewitt.tech')
+      expect(urls).to include('http://ricky.hewitt.tech')
     end
 
     it 'does not add invalid link' do
@@ -32,4 +33,15 @@ describe Link do
     end
   end
 
+  describe '#self.delete' do
+    it 'deletes a link' do
+      Link.delete(1)
+
+      links = Link.all
+      urls = links.map(&:url)
+
+      expect(urls).not_to include 'http://www.makersacademy.com'
+
+    end
+  end
 end
