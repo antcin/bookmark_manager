@@ -16,6 +16,10 @@
         <input type="hidden" name="id" value="<%= link.id %>">
        <input type="submit" value="Delete">
      </form>
+     <form action="/update_link_form" method="get">
+       <input type="hidden" name="id" value="<%= link.id %>">
+       <input type="submit" value="Update">
+     </form>
     </li>
   <% end %>
 </ul>

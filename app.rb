@@ -25,15 +25,13 @@ class BookmarkManager < Sinatra::Base
     redirect('/')
   end
 
-  get '/update-link/:id' do
-    @link_id = params['id']
+  get '/update_link_form' do
+    @link = Link.find(params['id'])
     erb :update_link
   end
 
   post '/update-link' do
-    conn = PG.connect(dbname: 'bookmark_manager_test')
-    conn.exec("UPDATE links SET url = '#{params['url']}', title = '#{params['title']}' WHERE id = '#{params['id']}'")
-
+    Link.update(params['id'], params)
     redirect('/')
   end
 

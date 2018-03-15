@@ -44,4 +44,29 @@ describe Link do
 
     end
   end
+
+  describe '#self.update' do
+  it "updates a link" do
+    link = Link.add(url: 'https://youtube.com', title: 'Youtube')
+    Link.update(link.id, url: 'http://www.notyoutube.com', title: 'Not Youtube')
+    links = Link.all
+    urls = links.map(&:url)
+    titles = links.map(&:title)
+
+    expect(urls).not_to include "https://youtube.com"
+    expect(titles).not_to include "Youtube"
+    expect(urls).to include "http://www.notyoutube.com"
+    expect(titles).to include "Not Youtube"
+  end
+end
+
+describe '.find' do
+  it 'finds a link' do
+    new_link = Link.add(url: 'https://youtube.com', title: 'Youtube')
+    link = Link.find(new_link.id)
+
+    expect(link.url).to eq "https://youtube.com"
+    expect(link.title).to eq "Youtube"
+  end
+end
 end

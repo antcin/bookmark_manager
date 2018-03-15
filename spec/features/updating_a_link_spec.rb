@@ -1,13 +1,18 @@
-feature 'updating a link' do
+feature 'Updating a link' do
   scenario 'user can update link' do
-    visit '/update-link/1'
+    link = Link.add(url: 'http://testexample.com', title: 'Test Link')
+    visit("/")
 
-    fill_in('url', with: 'http://ricky.hewitt.tech')
-    fill_in('title', with: 'Ant Cin')
-    click_button('Submit')
+    within "#link-#{link.id}" do
+      click_button 'Update'
+    end
+
+    fill_in('url', with: 'http://www.snakersacademy.com')
+    fill_in('title', with: 'Snakers Academy')
+    click_button('Update')
 
     expect(current_path).to eq '/'
-    expect(page).not_to have_content 'Ricky Hewitt Tech'
-    expect(page).to have_content 'Ant Cin'
+    expect(page).not_to have_content 'Test Link'
+    expect(page).to have_content 'Snakers Academy'
   end
 end
