@@ -16,13 +16,24 @@ class BookmarkManager < Sinatra::Base
 
   post '/add' do
     link = Link.add(url: params['url'], title: params['title'])
-
     flash[:notice] = "Please enter a valid URL" unless link
     redirect('/')
   end
 
   post '/delete' do
     Link.delete(params['id'])
+    redirect('/')
+  end
+
+  get '/update-link/:id' do
+    @link_id = params['id']
+    erb :update_link
+  end
+
+  post '/update-link' do
+    conn = PG.connect(dbname: 'bookmark_manager_test')
+    conn.exec("UPDATE links SET url = '#{params['url']}', title = '#{params['title']}' WHERE id = '#{params['id']}'")
+
     redirect('/')
   end
 
